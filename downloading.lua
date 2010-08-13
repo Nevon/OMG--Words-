@@ -26,7 +26,7 @@ function state:draw()
 	love.graphics.setColor(66,66,66)
 	love.graphics.setFont(fonts.bold12)
 
-	love.graphics.printf("Press                to download the words of the almighty. If you don't have an internet connection, this WILL fail.", 252, 315, 360, "left")
+	love.graphics.printf("Press                to download the words of the almighty. No internet connection? Don't worry. I'll just use magic.", 252, 315, 360, "left")
 	love.graphics.print("Press          to quit", 252, 360)
 
 	love.graphics.setColor(241,93,34)
