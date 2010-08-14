@@ -49,27 +49,25 @@ function state:update(dt)
 			dir = -1
 		end
 		-- If the word is one of these; summon teh great Joey
-		if string.lower(w) == "ubuntu" or 
-			string.lower(w) == "linux" or
-			string.lower(w) == "tux" or
-			string.lower(w) == "omg" or
-			string.lower(w) == "awesome" or
-			string.lower(w) == "tea" or
-			string.lower(w) == "awesomeness" or
-			string.lower(w) == "stunning" or
-			string.lower(w) == "fantastic" or
-			string.lower(w) == "danrabbit" or
-			string.lower(w) == "candy" or
-			string.lower(w) == "brunn" or --This is my secret way of making him write about me more often ;)
-			string.lower(w) == "favourite" or
-			string.lower(w) == "amazing" or
-			string.lower(w) == "zeitgeist" or
-			string.lower(w) == "elementary" then
+		local lower = string.lower
+		if lower(w) == "ubuntu" or 
+			lower(w) == "linux" or
+			lower(w) == "tux" or
+			lower(w) == "omg" or
+			lower(w) == "awesome" or
+			lower(w) == "tea" or
+			lower(w) == "awesomeness" or
+			lower(w) == "stunning" or
+			lower(w) == "fantastic" or
+			lower(w) == "danrabbit" or
+			lower(w) == "candy" or
+			lower(w) == "brunn" or --This is my secret way of making him write about me more often ;)
+			lower(w) == "favourite" or
+			lower(w) == "amazing" or
+			lower(w) == "zeitgeist" or
+			lower(w) == "elementary" then
 				table.insert(actors, Helper(images.joey, math.random(170, 440), dir, 125))
-		end
-		
-		-- If it's a really long word, get Ben in there to screw with the player
-		if #w > 8 then
+		elseif #w > 8 then -- If it's a really long word, get Ben in there to screw with the player
 			table.insert(actors, Trickster(images.ben, math.random(170, 440), dir, 125))
 		end
 	end

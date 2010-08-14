@@ -32,7 +32,7 @@ function string:split(sSeparator, nMax, bRegexp)
 	return aRecord
 end
 
-function table:shuffle(list)
+function table.shuffle(list)
 	local n = #list
 	while n > 1 do
 		k = math.random(n)

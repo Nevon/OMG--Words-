@@ -2,11 +2,7 @@ require("class")
 
 Actor = Class{name="Actor", function(self, avatar, y, dir, speed)
 	self.avatar = avatar
-	if dir > 0 then
-		self.x = -48
-	else
-		self.x = 848
-	end
+	self.x = dir > 0 and -48 or 848
 	self.y = y
 	self.dir = dir
 	self.speed = speed
@@ -28,7 +24,7 @@ function Trickster:update(dt, words, ...)
 	
 	for _,v in ipairs(words) do
 		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y, v.length*18, 18) then
-			table:shuffle(v.letters)
+			table.shuffle(v.letters)
 		end
 	end
 end
