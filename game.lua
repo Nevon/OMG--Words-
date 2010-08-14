@@ -49,23 +49,23 @@ function state:update(dt)
 			dir = -1
 		end
 		-- If the word is one of these; summon teh great Joey
-		local lower = string.lower
-		if lower(w) == "ubuntu" or 
-			lower(w) == "linux" or
-			lower(w) == "tux" or
-			lower(w) == "omg" or
-			lower(w) == "awesome" or
-			lower(w) == "tea" or
-			lower(w) == "awesomeness" or
-			lower(w) == "stunning" or
-			lower(w) == "fantastic" or
-			lower(w) == "danrabbit" or
-			lower(w) == "candy" or
-			lower(w) == "brunn" or --This is my secret way of making him write about me more often ;)
-			lower(w) == "favourite" or
-			lower(w) == "amazing" or
-			lower(w) == "zeitgeist" or
-			lower(w) == "elementary" then
+		local lowered = string.lower(w)
+		if lowered == "ubuntu" or 
+			lowered == "linux" or
+			lowered == "tux" or
+			lowered == "omg" or
+			lowered == "awesome" or
+			lowered == "tea" or
+			lowered == "awesomeness" or
+			lowered == "stunning" or
+			lowered == "fantastic" or
+			lowered == "danrabbit" or
+			lowered == "candy" or
+			lowered == "brunn" or --This is my secret way of making him write about me more often ;)
+			lowered == "favourite" or
+			lowered == "amazing" or
+			lowered == "zeitgeist" or
+			lowered == "elementary" then
 				table.insert(actors, Helper(images.joey, math.random(170, 440), dir, 125))
 		elseif #w > 8 then -- If it's a really long word, get Ben in there to screw with the player
 			table.insert(actors, Trickster(images.ben, math.random(170, 440), dir, 125))
