@@ -9,6 +9,7 @@ require("game")
 require("result")
 require("words")
 require("explosion")
+require("actor")
 
 function love.load()
 	love.graphics.setBackgroundColor(247, 246, 245)

@@ -6,6 +6,7 @@ local lives = 10
 local words = {}
 local timer = 0
 local explosions = {}
+local actors = {}
 
 function state:enter(prev, s)
 	-- In case we would like to be able to set the score to something.
@@ -15,6 +16,7 @@ function state:enter(prev, s)
 	timer = 0
 	lives = 10
 	words = {}
+	actors = {}
 	soundmanager:playMusic(soundmanager:shuffle(music.chica_mi_tipo, music.calma_la_libertad))
 end
 
@@ -29,7 +31,7 @@ function state:update(dt)
 	--How long have we been playing?
 	timer = timer+dt
 	--Countdown until the next word
-	cooldown = cooldown-dt-1*(timer/2500)
+	cooldown = cooldown-dt-1*(timer/2000)
 	
 	--Add more words
 	if cooldown <= 0 then
@@ -38,6 +40,38 @@ function state:update(dt)
 		table.insert(words, Word(w, math.random(55, 745-fonts.mono28:getWidth(w))))
 		--reset the cooldown
 		cooldown = 3
+		
+		--Add actors
+		local dir = 0
+		if math.random(1,100)%2 == 0 then
+			dir = 1
+		else
+			dir = -1
+		end
+		-- If the word is one of these; summon teh great Joey
+		if string.lower(w) == "ubuntu" or 
+			string.lower(w) == "linux" or
+			string.lower(w) == "tux" or
+			string.lower(w) == "omg" or
+			string.lower(w) == "awesome" or
+			string.lower(w) == "tea" or
+			string.lower(w) == "awesomeness" or
+			string.lower(w) == "stunning" or
+			string.lower(w) == "fantastic" or
+			string.lower(w) == "danrabbit" or
+			string.lower(w) == "candy" or
+			string.lower(w) == "brunn" or --This is my secret way of making him write about me more often ;)
+			string.lower(w) == "favourite" or
+			string.lower(w) == "amazing" or
+			string.lower(w) == "zeitgeist" or
+			string.lower(w) == "elementary" then
+				table.insert(actors, Helper(images.joey, math.random(170, 440), dir, 125))
+		end
+		
+		-- If it's a really long word, get Ben in there to screw with the player
+		if #w > 8 then
+			table.insert(actors, Trickster(images.ben, math.random(170, 440), dir, 125))
+		end
 	end
 	
 	local removelist = {}
@@ -56,6 +90,23 @@ function state:update(dt)
 				Gamestate.switch(Gamestate.result, score)
 			end
 		end
+	end
+	for i,v in ipairs(removelist) do
+		table.remove(words, v-i+1)
+	end
+	
+	--update the actors
+	local removelist_a = {}
+	for i,v in ipairs(actors) do
+		v:update(dt, words, removelist, explosions, score, timer)
+		
+		--Remove out of bounds actors
+		if v.x <= -49 or v.x >= 849 then
+			table.insert(removelist_a, i)
+		end
+	end
+	for i,v in ipairs(removelist_a) do
+		table.remove(actors, v-i+1)
 	end
 	for i,v in ipairs(removelist) do
 		table.remove(words, v-i+1)
@@ -90,6 +141,11 @@ function state:draw()
 	
 	--Draw explosions
 	for _,v in ipairs(explosions) do
+		v:draw()
+	end
+	
+	--Draw actors
+	for _, v in ipairs(actors) do
 		v:draw()
 	end
 	
