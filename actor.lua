@@ -34,9 +34,9 @@ Helper = Class{name="Helper", function(self, avatar, y, dir, speed)
 end}
 Inherit(Helper, Actor)
 
-function Helper:update(dt, words, removelist, explosions, score, timer)
+function Helper:update(dt, words, explosions, score, timer)
 	self.x = self.x + self.speed*dt*self.dir
-	
+	local removelist = {}
 	for i,v in ipairs(words) do
 		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y, v.length*18, -18) then
 			table.insert(removelist, i)
@@ -49,5 +49,9 @@ function Helper:update(dt, words, removelist, explosions, score, timer)
 			--Increase the player's score
 			score = score + (50+timer)*v.length
 		end
+	end
+	
+	for i,v in ipairs(removelist) do
+		table.remove(words, v-i+1)
 	end
 end

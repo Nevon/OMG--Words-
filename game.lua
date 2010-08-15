@@ -96,7 +96,7 @@ function state:update(dt)
 	--update the actors
 	local removelist_a = {}
 	for i,v in ipairs(actors) do
-		v:update(dt, words, removelist, explosions, score, timer)
+		v:update(dt, words, explosions, score, timer)
 		
 		--Remove out of bounds actors
 		if v.x <= -49 or v.x >= 849 then
@@ -105,9 +105,6 @@ function state:update(dt)
 	end
 	for i,v in ipairs(removelist_a) do
 		table.remove(actors, v-i+1)
-	end
-	for i,v in ipairs(removelist) do
-		table.remove(words, v-i+1)
 	end
 	
 	--Update the explosions
