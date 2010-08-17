@@ -7,15 +7,18 @@ local resultlevel = 0
 
 function state:enter(pre, s)
 	score = math.floor(s)
-	if score >= 100000 then
+	if score >= 80000 then
 		soundmanager:play(sounds.cheer)
 		resultlevel = 3
-	elseif score >= 45000 and score < 100000 then
+		AwardManager:AwardTrophy("Nimble fingers")
+	elseif score >= 25000 and score < 80000 then
 		soundmanager:play(sounds.meh)
 		resultlevel = 2
+		AwardManager:AwardTrophy("Amateur blogger")
 	else
 		soundmanager:play(sounds.boo)
 		resultlevel = 1
+		AwardManager:AwardTrophy("Grandma")
 	end
 end
 

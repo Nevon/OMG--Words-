@@ -10,12 +10,13 @@ require("result")
 require("words")
 require("explosion")
 require("actor")
+require("achievements")
 
 function love.load()
 	love.graphics.setBackgroundColor(247, 246, 245)
 
 	love.filesystem.setIdentity("omgwords")
-
+	
 	--get us a randomseed before generating random data
 	math.randomseed(love.timer.getMicroTime()*1000000)
 
