@@ -1,11 +1,11 @@
-local test, luomg = pcall(require, "luomg")
+local luomg_available, luomg = pcall(require, "luomg")
 local application = "application://omgwords.desktop"
 local icon = "/usr/share/icons/hicolor/48x48/apps/omgwords.png"
 
 AwardManager = {}
 
 function AwardManager:Register(title, description, priority)
-	if not test then return false end
+	if not luomg_available then return false end
 	
 	local try = pcall(luomg.RegisterTrophy, title, description, application, icon, priority)
 	if not try then
@@ -14,7 +14,7 @@ function AwardManager:Register(title, description, priority)
 end
 
 function AwardManager:AwardTrophy(title)
-	if not test then return false end
+	if not luomg_available then return false end
 	
 	local try = pcall(luomg.AwardTrophy, title, application)
 	
@@ -24,7 +24,7 @@ function AwardManager:AwardTrophy(title)
 end
 
 function AwardManager:DeleteTrophy(title)
-	if not test then return false end
+	if not luomg_available then return false end
 	
 	local try = pcall(luomg.DeleteTrophy, title, application)
 	
