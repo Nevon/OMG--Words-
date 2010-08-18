@@ -11,11 +11,16 @@ require("words")
 require("explosion")
 require("actor")
 require("achievements")
+require("sick")
+require("highscore")
 
 function love.load()
 	love.graphics.setBackgroundColor(247, 246, 245)
 
 	love.filesystem.setIdentity("omgwords")
+	
+	highscore.set("highscore", 1, "Empty", 0)
+	highscore.save()
 	
 	--get us a randomseed before generating random data
 	math.randomseed(love.timer.getMicroTime()*1000000)
@@ -34,6 +39,7 @@ function love.load()
 	--load fonts
 	fonts = {
 		bold12 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 12),
+		bold14 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 14),
 		regular14 = love.graphics.newFont("gfx/fonts/NimbusSansL-Regular.ttf", 14),
 		bold64 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 64),
 		bold28 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 28),

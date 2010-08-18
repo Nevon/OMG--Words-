@@ -52,6 +52,12 @@ function state:update(dt)
 		local lowered = string.lower(w)
 		if lowered == "ubuntu" or 
 			lowered == "linux" or
+			lowered == "narwhal" or
+			lowered == "maverick" or
+			lowered == "lucid" or
+			lowered == "natty" or
+			lowered == "meerkat" or
+			lowered == "lynx" or
 			lowered == "tux" or
 			lowered == "omg" or
 			lowered == "awesome" or
@@ -67,7 +73,7 @@ function state:update(dt)
 			lowered == "zeitgeist" or
 			lowered == "elementary" then
 				table.insert(actors, Helper(images.joey, math.random(170, 440), dir, 125))
-		elseif #w > 8 then -- If it's a really long word, get Ben in there to screw with the player
+		elseif #w > 9 then -- If it's a really long word, get Ben in there to screw with the player
 			table.insert(actors, Trickster(images.ben, math.random(170, 440), dir, 125))
 		end
 	end
@@ -85,7 +91,7 @@ function state:update(dt)
 			-- "health"
 			lives = lives-1
 			if lives <= 0 then
-				Gamestate.switch(Gamestate.result, score)
+				Gamestate.switch(Gamestate.highscore, score)
 			end
 		end
 	end
@@ -180,7 +186,7 @@ end
 
 function state:keypressed(key, unicode)
 	if key == "escape" then
-		Gamestate.switch(Gamestate.result, score)
+		Gamestate.switch(Gamestate.highscore, score)
 	end
 	
 	-- See if the player typed the correct letter

@@ -6,7 +6,7 @@ local score = 0
 local resultlevel = 0
 
 function state:enter(pre, s)
-	score = math.floor(s)
+	score = s
 	if score >= 80000 then
 		soundmanager:play(sounds.cheer)
 		resultlevel = 3
