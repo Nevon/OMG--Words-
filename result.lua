@@ -19,6 +19,9 @@ function state:enter(pre, s)
 		soundmanager:play(sounds.boo)
 		resultlevel = 1
 		AwardManager:AwardTrophy("Grandma")
+		if score == 0 then
+			AwardManager:AwardTrophy("Utter failure")
+		end
 	end
 end
 
