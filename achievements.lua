@@ -51,3 +51,4 @@ AwardManager:Register("Marathon man", "Survived the onslaught for over 3.5 minut
 AwardManager:Register("Penguin", "Is it really you...?", 0)
 AwardManager:Register("Cosmonaut", "Don't you have better things to do, Mark?", 0)
 AwardManager:Register("Utter failure", "0 points... Seriously?", 0)
+AwardManager:Register("Threesome", "Cleared three or more words at the same time", 1)

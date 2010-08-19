@@ -242,6 +242,10 @@ function state:keypressed(key, unicode)
 		resetwords = false
 	end
 	
+	if #removelist >= 3 then
+		AwardManager:AwardTrophy("Threesome")
+	end
+	
 	--And now actually remove the word
 	for i,v in ipairs(removelist) do
 		table.remove(words, v-i+1)
