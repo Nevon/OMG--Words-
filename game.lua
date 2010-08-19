@@ -208,7 +208,7 @@ function state:keypressed(key, unicode)
 				--Play a sound
 				soundmanager:play(sounds.swoosh)
 				--Increase the player's score
-				score = score + (50+timer)*v.length
+				score = score + (50+timer)*v.length*v.shuffled
 				
 				-- Because we've finished a word, all the other words
 				-- that have been started on should be reset.

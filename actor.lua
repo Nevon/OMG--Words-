@@ -25,6 +25,7 @@ function Trickster:update(dt, words, ...)
 	for _,v in ipairs(words) do
 		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y, v.length*18, 18) then
 			table.shuffle(v.letters)
+			v.shuffled = 2
 		end
 	end
 end
@@ -47,7 +48,7 @@ function Helper:update(dt, words, explosions, score, timer)
 			--Play a sound
 			soundmanager:play(sounds.swoosh)
 			--Increase the player's score
-			score = score + (50+timer)*v.length
+			score = score + (50+timer)*v.length*v.shuffled
 		end
 	end
 	

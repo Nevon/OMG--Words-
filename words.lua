@@ -9,6 +9,8 @@ Word = Class{name="Word", function(self, l, x)
 	self.y = 80
 	--This is how many characters have been typed in by the user
 	self.typed = 0
+	--has the word been shuffled? (1=no, 2=yes)
+	self.shuffled = 1
 end}
 
 function Word:update(dt, speed)
