@@ -210,6 +210,10 @@ function state:keypressed(key, unicode)
 				--Increase the player's score
 				score = score + (50+timer)*v.length*v.shuffled
 				
+				if v.shuffled == 2 and v.length >= 8 then
+					AwardManager:AwardTrophy("rPo typits")
+				end
+				
 				-- Because we've finished a word, all the other words
 				-- that have been started on should be reset.
 				resetwords = true
