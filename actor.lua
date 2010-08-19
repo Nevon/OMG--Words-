@@ -15,6 +15,7 @@ end
 
 Trickster = Class{name="Trickster", function(self, avatar, y, dir, speed)
 	Actor.construct(self, avatar, y, dir, speed)
+	self.shuffled = 0
 	soundmanager:play(sounds.snicker)
 end}
 Inherit(Trickster, Actor)
@@ -26,7 +27,12 @@ function Trickster:update(dt, words, ...)
 		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y, v.length*18, 18) then
 			table.shuffle(v.letters)
 			v.shuffled = 2
+			self.shuffled = self.shuffled +1
 		end
+	end
+	
+	if self.shuffled >= 5 then
+		AwardManager:AwardTrophy("Cursed fellow")
 	end
 end
 
