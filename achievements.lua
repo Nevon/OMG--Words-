@@ -43,5 +43,6 @@ function AwardManager:DeleteTrophy(title)
 end
 
 AwardManager:Register("Grandma", "Got the worst possible evaluation", 0)
-AwardManager:Register("Amateur blogger", "Got a score over 25000", 0)
+AwardManager:Register("Amateur blogger", "Got a score over 25000", 1)
 AwardManager:Register("World-class typist", "Got the best possible evaluation", 2)
+AwardManager:Register("Lucky bastard", "Had a single helper remove 4 words", 0)

@@ -32,6 +32,7 @@ end
 
 Helper = Class{name="Helper", function(self, avatar, y, dir, speed)
 	Actor.construct(self, avatar, y, dir, speed)
+	self.destroyed = 0
 end}
 Inherit(Helper, Actor)
 
@@ -49,6 +50,13 @@ function Helper:update(dt, words, explosions, score, timer)
 			soundmanager:play(sounds.swoosh)
 			--Increase the player's score
 			score = score + (50+timer)*v.length*v.shuffled
+			--Increase destroyed count
+			self.destroyed = self.destroyed+1
+			
+			--Award trophy if 4 words have been removed
+			if self.destroyed == 4 then
+				AwardManager:AwardTrophy("Lucky bastard")
+			end
 		end
 	end
 	

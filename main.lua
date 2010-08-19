@@ -62,7 +62,7 @@ function love.load()
 		local dest = "trophies/"..name
 		if not lfs.exists(dest) then
 			print(dest.." doesn't seem to exist")
-			if not lfs.write(dest, lfs.read(src)) then
+			if lfs.write(dest, lfs.read(src)) then
 				print("Writing to "..dest.." worked!")
 			else
 				print("Writing to "..dest.." failed.")
