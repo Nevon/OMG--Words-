@@ -112,6 +112,10 @@ function state:keypressed(key, unicode)
 	if key == "return" then
 		highscore.add(name, score)
 		highscore.save()
+		if string.lower(name) == "tux" then
+			AwardManager:AwardTrophy("Penguin")
+		end
+		
 		Gamestate.switch(Gamestate.result, score)
 	end
 end
