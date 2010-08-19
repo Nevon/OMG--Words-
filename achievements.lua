@@ -47,3 +47,4 @@ AwardManager:Register("World-class typist", "Got the best possible evaluation", 
 AwardManager:Register("Lucky bastard", "Had a single helper remove 4 words", 0)
 AwardManager:Register("rPo typits", "Cleared a long, shuffled word", 1)
 AwardManager:Register("Storywriter", "Cleared a really long word", 0)
+AwardManager:Register("Marathon man", "Survived the onslaught for over 3.5 minutes", 1)

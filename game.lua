@@ -7,6 +7,7 @@ local words = {}
 local timer = 0
 local explosions = {}
 local actors = {}
+local marathon = false
 
 function state:enter(prev, s)
 	-- In case we would like to be able to set the score to something.
@@ -17,6 +18,7 @@ function state:enter(prev, s)
 	lives = 10
 	words = {}
 	actors = {}
+	marathon = false
 	soundmanager:playMusic(soundmanager:shuffle(music.chica_mi_tipo, music.calma_la_libertad))
 end
 
@@ -30,6 +32,13 @@ function state:update(dt)
 	
 	--How long have we been playing?
 	timer = timer+dt
+	
+	--Award if we've played for a long time
+	if not marathon and timer >= 210 then
+		AwardManager:AwardTrophy("Marathon man")
+		marathon = true
+	end
+	
 	--Countdown until the next word
 	cooldown = cooldown-dt-1*(timer/2000)
 	
