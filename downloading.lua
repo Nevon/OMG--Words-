@@ -17,6 +17,15 @@ function state:draw()
 
 	--The head banner
 	love.graphics.draw(images.banner, 0, 10)
+	
+	if highscore.scores[1][2] ~= "Empty" then
+		-- Current reigning champion
+		love.graphics.setColor(238, 238, 238)
+		love.graphics.setFont(fonts.bold14)
+		love.graphics.print("Reigning champion is", 270, 95)
+		love.graphics.setFont(fonts.bold28)
+		love.graphics.print(highscore.scores[1][2].." at "..highscore.scores[1][1].." points", 270, 120)
+	end
 
 	--head
 	love.graphics.draw(images.tommy, 165, 287)

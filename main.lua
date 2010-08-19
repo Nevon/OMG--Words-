@@ -10,7 +10,6 @@ require("result")
 require("words")
 require("explosion")
 require("actor")
-require("achievements")
 require("sick")
 require("highscore")
 
@@ -46,7 +45,32 @@ function love.load()
 		bold24 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 24),
 		mono28 = love.graphics.newFont("gfx/fonts/NimbusMonoL-Bold.ttf", 28)
 	}
-
+	
+	--Move trophies if needed
+	local lfs = love.filesystem
+	local trophytable = lfs.enumerate("gfx/trophies/")
+	if not lfs.exists("trophies") then
+		lfs.mkdir("trophies")
+	end
+	
+	for i,v in ipairs(trophytable) do
+		print("File "..v.." found.")
+		local name = string.gsub(v, "[ -]", "_")
+		local name = string.lower(name)
+		print("Corresponds with "..name)
+		local src = "gfx/trophies/"..v
+		local dest = "trophies/"..name
+		if not lfs.exists(dest) then
+			print(dest.." doesn't seem to exist")
+			if not lfs.write(dest, lfs.read(src)) then
+				print("Writing to "..dest.." worked!")
+			else
+				print("Writing to "..dest.." failed.")
+			end
+		end
+	end
+	
+	require("achievements")
 	Gamestate.registerEvents()
 	Gamestate.switch(Gamestate.title)
 end

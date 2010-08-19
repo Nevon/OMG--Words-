@@ -10,7 +10,7 @@ function state:enter(pre, s)
 	if score >= 80000 then
 		soundmanager:play(sounds.cheer)
 		resultlevel = 3
-		AwardManager:AwardTrophy("Nimble fingers")
+		AwardManager:AwardTrophy("World-class typist")
 	elseif score >= 25000 and score < 80000 then
 		soundmanager:play(sounds.meh)
 		resultlevel = 2
