@@ -1,6 +1,5 @@
 local luomg_available, luomg = pcall(require, "luomg")
 local application = "application://omgwords.desktop"
---local icon = "/usr/share/icons/hicolor/scalable/apps/omgwords.svg"
 
 AwardManager = {}
 
@@ -47,3 +46,4 @@ AwardManager:Register("Amateur blogger", "Got a score over 25000", 1)
 AwardManager:Register("World-class typist", "Got the best possible evaluation", 2)
 AwardManager:Register("Lucky bastard", "Had a single helper remove 4 words", 0)
 AwardManager:Register("rPo typits", "Cleared a long, shuffled word", 1)
+AwardManager:Register("Storywriter", "Cleared a really long word", 0)
