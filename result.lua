@@ -27,6 +27,9 @@ function state:enter(pre, s)
 	
 	--Increase the total games played
 	counter.played = counter.played+1
+	if counter.played == 100 then
+		AwardManager:AwardTrophy("Word junkie")
+	end
 	
 	--round the saved score
 	counter.score = math.floor(counter.score)

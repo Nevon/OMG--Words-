@@ -49,3 +49,4 @@ AwardManager:Register("Marathon man", "Survived the onslaught for over 3.5 minut
 AwardManager:Register("Threesome", "Cleared three or more words at the same time", 1)
 AwardManager:Register("Cursed fellow", "Had a Trickster shuffle 5 or more words", 1)
 AwardManager:Register("Mr Meticulous", "Achieved a combo of 500 letters.", 2)
+AwardManager:Register("Word junkie", "Played a 100 rounds.", 2)
