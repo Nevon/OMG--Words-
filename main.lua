@@ -70,6 +70,21 @@ function love.load()
 		end
 	end
 	
+	counter = {}
+	--Load stats
+	if not lfs.exists("counter") then
+		counter = {
+			cleared=0,
+			helpers=0,
+			tricksters=0,
+			score=0,
+			played=0,
+		}
+		lfs.write("counter", TSerialize(counter))
+	else
+		counter = loadstring(lfs.read("counter"))()
+	end
+	
 	require("achievements")
 	Gamestate.registerEvents()
 	Gamestate.switch(Gamestate.title)

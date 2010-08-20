@@ -55,6 +55,29 @@ function rectRectCollision(box1x, box1y, box1w, box1h, box2x, box2y, box2w, box2
 	end
 end
 
+-- Taehl's serializer v1
+
+-- Usage: loadstring("tablename="..TSerialize(table))
+function TSerialize(t)
+	assert(type(t) == "table", "Can only TSerialize tables.")
+	if not t then return nil end
+	local s = "return {"
+	for k, v in pairs(t) do
+		if type(k) == "string" then k = k
+		elseif type(k) == "number" then k = "["..k.."]"
+		else error("Attempted to Tserialize a table with an invalid key: "..tostring(k))
+		end
+		if type(v) == "string" then v = "\""..v.."\""			
+		elseif type(v) == "table" then v = Tserialize(v)
+		elseif type(v) == "boolean" then v = v and "true" or "false"
+		elseif type(v) == "userdata" then v = ("%q"):format(tostring(v))
+		end
+		s = s..k.."="..v..","
+	end
+	return s.."}"
+end
+
+
 --[[ The following function is Copyright (c) 2010 Bart van Strien
 
 Permission is hereby granted, free of charge, to any person

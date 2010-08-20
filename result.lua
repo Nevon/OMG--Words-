@@ -24,6 +24,14 @@ function state:enter(pre, s)
 			AwardManager:AwardTrophy("Utter failure")
 		end
 	end
+	
+	--Increase the total games played
+	counter.played = counter.played+1
+	
+	--round the saved score
+	counter.score = math.floor(counter.score)
+	--Save the stats
+	love.filesystem.write("counter", TSerialize(counter))
 end
 
 function state:update(dt)

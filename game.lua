@@ -218,6 +218,8 @@ function state:keypressed(key, unicode)
 				soundmanager:play(sounds.swoosh)
 				--Increase the player's score
 				score = score + (50+timer)*v.length*v.shuffled
+				--increment the total score
+				counter.score = counter.score+score
 				
 				if v.shuffled == 2 and v.length >= 9 then
 					AwardManager:Register("rPo typits", "Cleared a long, shuffled word", 1)
@@ -247,6 +249,9 @@ function state:keypressed(key, unicode)
 	if #removelist >= 3 then
 		AwardManager:AwardTrophy("Threesome")
 	end
+	
+	--increment the cleared counter
+	counter.cleared = counter.cleared + #removelist
 	
 	--And now actually remove the word
 	for i,v in ipairs(removelist) do

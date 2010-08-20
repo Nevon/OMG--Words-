@@ -16,6 +16,7 @@ end
 Trickster = Class{name="Trickster", function(self, avatar, y, dir, speed)
 	Actor.construct(self, avatar, y, dir, speed)
 	self.shuffled = 0
+	counter.tricksters = counter.tricksters + 1
 	soundmanager:play(sounds.snicker)
 end}
 Inherit(Trickster, Actor)
@@ -39,6 +40,7 @@ end
 Helper = Class{name="Helper", function(self, avatar, y, dir, speed)
 	Actor.construct(self, avatar, y, dir, speed)
 	self.destroyed = 0
+	counter.helpers = counter.helpers + 1
 end}
 Inherit(Helper, Actor)
 
@@ -56,6 +58,10 @@ function Helper:update(dt, words, explosions, score, timer)
 			soundmanager:play(sounds.swoosh)
 			--Increase the player's score
 			score = score + (50+timer)*v.length*v.shuffled
+			
+			--increment the total score
+			counter.score = counter.score+score
+			
 			--Increase destroyed count
 			self.destroyed = self.destroyed+1
 			
