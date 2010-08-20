@@ -220,9 +220,11 @@ function state:keypressed(key, unicode)
 				score = score + (50+timer)*v.length*v.shuffled
 				
 				if v.shuffled == 2 and v.length >= 9 then
+					AwardManager:Register("rPo typits", "Cleared a long, shuffled word", 1)
 					AwardManager:AwardTrophy("rPo typits")
 				end
 				if v.length >= 13 then
+					AwardManager:Register("Storywriter", "Cleared a really long word", 0)
 					AwardManager:AwardTrophy("Storywriter")
 				end
 				-- Because we've finished a word, all the other words

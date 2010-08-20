@@ -114,8 +114,10 @@ function state:keypressed(key, unicode)
 		highscore.save()
 		local n = string.lower(name)
 		if n == "tux" then
+			AwardManager:Register("Penguin", "I didn't know penguins could type!", 0)
 			AwardManager:AwardTrophy("Penguin")
 		elseif n == "mark shuttleworth" then
+			AwardManager:Register("Cosmonaut", "Don't you have better things to do, Mark?", 0)
 			AwardManager:AwardTrophy("Cosmonaut")
 		end
 		

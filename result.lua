@@ -20,6 +20,7 @@ function state:enter(pre, s)
 		resultlevel = 1
 		AwardManager:AwardTrophy("Grandma")
 		if score == 0 then
+			AwardManager:Register("Utter failure", "0 points... Seriously?", 0)
 			AwardManager:AwardTrophy("Utter failure")
 		end
 	end
