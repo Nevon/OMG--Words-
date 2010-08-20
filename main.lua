@@ -54,10 +54,8 @@ function love.load()
 	end
 	
 	for i,v in ipairs(trophytable) do
-		print("File "..v.." found.")
 		local name = string.gsub(v, "[ -]", "_")
 		local name = string.lower(name)
-		print("Corresponds with "..name)
 		local src = "gfx/trophies/"..v
 		local dest = "trophies/"..name
 		if not lfs.exists(dest) then

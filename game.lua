@@ -8,6 +8,7 @@ local timer = 0
 local explosions = {}
 local actors = {}
 local marathon = false
+local combo = 0
 
 function state:enter(prev, s)
 	-- In case we would like to be able to set the score to something.
@@ -16,6 +17,7 @@ function state:enter(prev, s)
 	cooldown = 3
 	timer = 0
 	lives = 10
+	combo = 0
 	words = {}
 	actors = {}
 	marathon = false
@@ -201,10 +203,14 @@ function state:keypressed(key, unicode)
 	-- See if the player typed the correct letter
 	local removelist = {}
 	local resetwords = false
+	
+	--Used to check if the user entered a correct letter (or rather, didn't)
+	local enteredletter = false
 	for i,v in ipairs(words) do
 		if string.lower(key) == v.letters[v.typed+1] then
 			--Typed the next letter in the word
 			v.typed = v.typed +1
+			enteredletter = true
 			
 			--If that was the last letter, let's remove it
 			if v.typed == v.length then
@@ -253,6 +259,17 @@ function state:keypressed(key, unicode)
 	--increment the cleared counter
 	counter.cleared = counter.cleared + #removelist
 	
+	--Add to combo
+	if enteredletter then
+		combo = combo + 1
+	else
+		combo = 0
+	end
+	
+	if combo == 10 then
+		--Award trophy
+		AwardManager:AwardTrophy("Mr Meticulous")
+	end
 	--And now actually remove the word
 	for i,v in ipairs(removelist) do
 		table.remove(words, v-i+1)
