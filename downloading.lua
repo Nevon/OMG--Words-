@@ -54,7 +54,6 @@ function state:keypressed(key, unicode)
 	if key == "escape" then
 		love.event.push('q')
 	elseif key == "return" then
-		print("Attemping to download latest post from http://omgubuntu.co.uk")
 		downloadWords()
 	end
 end
@@ -64,9 +63,13 @@ function downloadWords()
 	local http = require("socket.http")
 	http.TIMEOUT = 5
 	local success, post = pcall(function ()
-		local a = http.request("http://omgubuntu.co.uk/")
-		local b = http.request(a:match("<h3 class='post%-title entry%-title'>\n<a href='([^']+)"))
-		return b:match("<div class='post%-body entry%-content'>(.+)</div>\n<div class='post%-footer'"):gsub("&nbsp;", " "):gsub("<a[^>]+>[^<]+</a>", ""):gsub("<[^>]+>", "")
+		local url = "http://www.omgubuntu.dreamhosters.com/"
+		print("Attempting to contact "..url)
+		local a = http.request(url)
+		local posturl = a:match(('entry%-title"><a href="([^"]+)'))
+		print("Attempting to download post from "..posturl)
+		local b = http.request(posturl)
+		return b:match('<div class="entry%-content">(.+)</div><!%-%- .entry%-content'):gsub("<[^>]+>", ""):gsub("&#8217;", "'"):gsub("&nbsp;", " "):gsub("<a[^>]+>[^<]+</a>", "")
 	end)
 
 	if not success then
