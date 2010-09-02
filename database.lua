@@ -7,6 +7,8 @@ Database = Class{name=Database, function(self, post)
 	for i,v in ipairs(self.datatable) do
 		if #v == 1 then
 			table.insert(removetable, i)
+		elseif v == 'll' or v == 'isn' or v == 'doesn' or v = 're' or v = 'hasn' then
+			table.insert(removetable, i)
 		end
 	end
 	for i,v in ipairs(removetable) do
