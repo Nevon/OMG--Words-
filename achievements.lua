@@ -1,5 +1,9 @@
 local luomg_available, luomg = pcall(require, "luomg")
 local application = "application://omgwords.desktop"
+local set_name = "Games"
+local trophy_file = [[
+<?xml version="1.0" encoding="utf-8"?>
+]]
 
 AwardManager = {}
 
@@ -15,16 +19,36 @@ function AwardManager:Register(title, description, priority)
 		icon = love.filesystem.getSaveDirectory().."/trophies/"..icon
 	end
 	
-	local try = pcall(luomg.RegisterTrophy, title, description, application, icon, priority)
-	if not try then
-		print("Failed to register trophy "..title)
-	end
+	trophy_file = trophy_file .. ([[
+<Trophy>
+	<ID>%s</ID>
+	<Title>%s</Title>
+	<Description>
+		<LocalizableType Language="en-us">%s</LocalizableType>
+	</Description>
+	<IconPath>%s</IconPath>
+	<SetName>%s</SetName>
+	<Application>%s</Application>
+	<ApplicationFriendlyName>OMG! Words!</ApplicationFriendlyName</ApplicationFriendlyName>
+	<Priority>%d</Priority>
+	<SetIcon/>
+	<StockIcon/>
+</Trophy>
+	]]):format(self:GenerateID(title), title, description, icon, set_name, application, priority)
+end
+
+function AwardManager:Write()
+	print(trophy_file)
+end
+
+function AwardManager:GenerateID(title)
+	return ("%s/%s/%s"):format(application, set_name, title)
 end
 
 function AwardManager:AwardTrophy(title)
 	if not luomg_available then return false end
 	
-	local try = pcall(luomg.AwardTrophy, title, application)
+	local try = pcall(luomg.AwardTrophy, self:GenerateID(title), set_name)
 	
 	if not try then
 		print("Failed to award trophy "..title.. ". Sorry!")
@@ -34,7 +58,7 @@ end
 function AwardManager:DeleteTrophy(title)
 	if not luomg_available then return false end
 	
-	local try = pcall(luomg.DeleteTrophy, title, application)
+	local try = pcall(luomg.DeleteTrophy, self:GenerateID(title), set_name)
 	
 	if not try then
 		print("Failed to remove trophy "..title)
@@ -50,3 +74,4 @@ AwardManager:Register("Threesome", "Cleared three or more words at the same time
 AwardManager:Register("Cursed fellow", "Had a Trickster shuffle 5 or more words", 1)
 AwardManager:Register("Mr Meticulous", "Achieved a combo of 500 letters.", 2)
 AwardManager:Register("Word junkie", "Played a 100 rounds.", 2)
+AwardManager:Write()
