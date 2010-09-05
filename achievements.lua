@@ -1,14 +1,14 @@
 local luomg_available, luomg = pcall(require, "luomg")
+local lfs_available, lfs = pcall(require, "lfs")
 local application = "application://omgwords.desktop"
 local set_name = "Games"
-local trophy_file = [[
-<?xml version="1.0" encoding="utf-8"?>
-]]
+local userdir = love.filesystem.getUserDirectory()
 
 AwardManager = {}
 
 function AwardManager:Register(title, description, priority)
 	if not luomg_available then return false end
+	if not lfs_available then return false end
 	
 	local icon = string.gsub(title, "[ -]", "_")
 	icon = string.lower(icon)..".svg"
@@ -19,26 +19,36 @@ function AwardManager:Register(title, description, priority)
 		icon = love.filesystem.getSaveDirectory().."/trophies/"..icon
 	end
 	
-	trophy_file = trophy_file .. ([[
-<Trophy>
-	<ID>%s</ID>
-	<Title>%s</Title>
-	<Description>
-		<LocalizableType Language="en-us">%s</LocalizableType>
-	</Description>
-	<IconPath>%s</IconPath>
-	<SetName>%s</SetName>
-	<Application>%s</Application>
-	<ApplicationFriendlyName>OMG! Words!</ApplicationFriendlyName</ApplicationFriendlyName>
-	<Priority>%d</Priority>
-	<SetIcon/>
-	<StockIcon/>
+	local id = self:GenerateID(title)
+	
+	local trophy_file = ([[
+<?xml version="1.0" encoding="utf-8"?>
+<Trophy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ID>%s</ID>
+  <Title>%s</Title>
+  <Description>
+    <LocalizableType Language="en-us">%s</LocalizableType>
+   </Description>
+   <IconPath>%s</IconPath>
+   <SetName>%s</SetName>
+   <Application>%s</Application>
+   <ApplicationFriendlyName>OMG! Words!</ApplicationFriendlyName>
+   <Priority>%d</Priority>
+   <SetIcon/>
+   <StockIcon/>
 </Trophy>
-	]]):format(self:GenerateID(title), title, description, icon, set_name, application, priority)
+	]]):format(id, title, description, icon, set_name, application, priority)
+	
+	if not self:Write(title, trophy_file) then print("Failed to open/create omgwords-"..title..".trophy") end
 end
 
-function AwardManager:Write()
-	print(trophy_file)
+function AwardManager:Write(title, content)
+	if not lfs_available then return false end
+	local success, file = pcall(io.open, userdir..".local/share/omg/trophy/omgwords-"..title..".trophy", "w")
+	if not success then return false end
+	file:write(content)
+	file:close()
+	return true
 end
 
 function AwardManager:GenerateID(title)
@@ -47,6 +57,7 @@ end
 
 function AwardManager:AwardTrophy(title)
 	if not luomg_available then return false end
+	if not lfs_available then return false end
 	
 	local try = pcall(luomg.AwardTrophy, self:GenerateID(title), set_name)
 	
@@ -57,6 +68,7 @@ end
 
 function AwardManager:DeleteTrophy(title)
 	if not luomg_available then return false end
+	if not lfs_available then return false end
 	
 	local try = pcall(luomg.DeleteTrophy, self:GenerateID(title), set_name)
 	
@@ -74,4 +86,3 @@ AwardManager:Register("Threesome", "Cleared three or more words at the same time
 AwardManager:Register("Cursed fellow", "Had a Trickster shuffle 5 or more words", 1)
 AwardManager:Register("Mr Meticulous", "Achieved a combo of 500 letters.", 2)
 AwardManager:Register("Word junkie", "Played a 100 rounds.", 2)
-AwardManager:Write()
