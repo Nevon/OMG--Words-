@@ -1,5 +1,4 @@
 local luomg_available, luomg = pcall(require, "luomg")
-local lfs_available, lfs = pcall(require, "lfs")
 local application = "application://omgwords.desktop"
 local set_name = "Games"
 local userdir = love.filesystem.getUserDirectory()
@@ -8,7 +7,6 @@ AwardManager = {}
 
 function AwardManager:Register(title, description, priority)
 	if not luomg_available then return false end
-	if not lfs_available then return false end
 	
 	local icon = string.gsub(title, "[ -]", "_")
 	icon = string.lower(icon)..".svg"
@@ -18,8 +16,6 @@ function AwardManager:Register(title, description, priority)
 	else
 		icon = userdir..".love/omgwords/trophies/"..icon
 	end
-	
-	local id = self:GenerateID(title)
 	
 	local trophy_file = ([[
 <?xml version="1.0" encoding="utf-8"?>
@@ -37,13 +33,12 @@ function AwardManager:Register(title, description, priority)
    <SetIcon/>
    <StockIcon/>
 </Trophy>
-	]]):format(id, title, description, icon, set_name, application, priority)
+	]]):format(self:GenerateID(title), title, description, icon, set_name, application, priority)
 	
 	if not self:Write(title, trophy_file) then print("Failed to open/create omgwords-"..title..".trophy") end
 end
 
 function AwardManager:Write(title, content)
-	if not lfs_available then return false end
 	local success, file = pcall(io.open, userdir..".local/share/omg/trophy/omgwords-"..title..".trophy", "w")
 	if not success then return false end
 	file:write(content)
@@ -57,7 +52,6 @@ end
 
 function AwardManager:AwardTrophy(title)
 	if not luomg_available then return false end
-	if not lfs_available then return false end
 	
 	local try = pcall(luomg.AwardTrophy, self:GenerateID(title), set_name)
 	
@@ -68,7 +62,6 @@ end
 
 function AwardManager:DeleteTrophy(title)
 	if not luomg_available then return false end
-	if not lfs_available then return false end
 	
 	local try = pcall(luomg.DeleteTrophy, self:GenerateID(title), set_name)
 	
