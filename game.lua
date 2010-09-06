@@ -266,7 +266,7 @@ function state:keypressed(key, unicode)
 		combo = 0
 	end
 	
-	if combo == 10 then
+	if combo == 500 then
 		--Award trophy
 		AwardManager:AwardTrophy("Mr Meticulous")
 	end

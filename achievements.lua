@@ -16,7 +16,7 @@ function AwardManager:Register(title, description, priority)
 	if not love.filesystem.exists("trophies/"..icon) then
 		icon = "/usr/share/icons/hicolor/scalable/apps/omgwords.svg"
 	else
-		icon = love.filesystem.getSaveDirectory().."/trophies/"..icon
+		icon = userdir..".love/omgwords/trophies/"..icon
 	end
 	
 	local id = self:GenerateID(title)
