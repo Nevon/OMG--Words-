@@ -26,9 +26,9 @@ function state:draw()
 		-- Current reigning champion
 		love.graphics.setColor(238, 238, 238)
 		love.graphics.setFont(fonts.bold14)
-		love.graphics.print("Reigning champion is", 270, 95)
+		love.graphics.print("Reigning champion is", 270, 81)
 		love.graphics.setFont(fonts.bold28)
-		love.graphics.print(highscore.scores[1][2].." at "..highscore.scores[1][1].." points", 270, 120)
+		love.graphics.print(highscore.scores[1][2].." at "..highscore.scores[1][1].." points", 270, 92)
 	end
 	
 	-- The speech bubble and portrait
@@ -39,22 +39,22 @@ function state:draw()
 	--The text for the speech bubble
 	love.graphics.setFont(fonts.bold12)	
 	love.graphics.setColor(42,44,46)
-	love.graphics.printf("So you think you're good enough to write for OMG! Ubuntu!, huh?", 252, 266, 360, "left")
-	love.graphics.print("Press", 252, 409)
-	love.graphics.print("to start!", 335, 409)
+	love.graphics.printf("So you think you're good enough to write for OMG! Ubuntu!, huh?", 252, 254, 360, "left")
+	love.graphics.print("Press", 252, 397)
+	love.graphics.print("to start!", 335, 397)
 	love.graphics.setColor(241,93, 34)
-	love.graphics.print("ENTER", 290, 409)
+	love.graphics.print("ENTER", 290, 397)
 	love.graphics.setColor(42,44,46)
 	
 	love.graphics.setFont(fonts.regular14)
-	love.graphics.printf("Guess you'll have to prove yourself then!", 252, 310, 360, "left")
-	love.graphics.printf("Type the words as you see them falling down from the top. Don't let them reach the bottom, or you'll soon fall behind on your deadline!", 252, 340, 360, "left")
+	love.graphics.printf("Guess you'll have to prove yourself then!", 252, 296, 360, "left")
+	love.graphics.printf("Type the words as you see them falling down from the top. Don't let them reach the bottom, or you'll soon fall behind on your deadline!", 252, 326, 360, "left")
 	
 	--Footer
 	love.graphics.rectangle("fill", 0, 530, 800, 70)
 	love.graphics.setFont(fonts.bold12)
 	love.graphics.setColor(184,184,184)
-	love.graphics.printf("OMG! Words! is developed and designed by Tommy Brunn in cooperation with the Love community", 252, 560, 340, "center")
+	love.graphics.printf("OMG! Words! is developed and designed by Tommy Brunn in cooperation with the Love community", 252, 546, 340, "center")
 end
 
 function state:keypressed(key, unicode)

@@ -34,7 +34,7 @@ function state:draw()
 	love.graphics.draw(images.score, 259, 100)
 	love.graphics.setColor(238, 238, 238)
 	love.graphics.setFont(fonts.bold64)
-	love.graphics.print(score.."!", 365, 121)
+	love.graphics.print(score.."!", 365, 51)
 	
 	--Portrait
 	love.graphics.setColor(255,255,255)
@@ -59,29 +59,29 @@ function state:draw()
 	love.graphics.setColor(42,44,46)
 	
 	-- text
-	love.graphics.printf("New high score!", 231, 233, 404, "center")
+	love.graphics.printf("New high score!", 231, 205, 404, "center")
 	love.graphics.setColor(66,66,66)
 	love.graphics.setFont(fonts.regular14)
-	love.graphics.printf("Tell us your name so that we can enter it into the history books:", 253, 260, 323, "left")
+	love.graphics.printf("Tell us your name so that we can enter it into the history books:", 253, 246, 323, "left")
 	
 	--Name
 	love.graphics.setFont(fonts.bold14)	
-	love.graphics.print(name, 261, 310)
+	love.graphics.print(name, 261, 296)
 	
 	--Question
-	love.graphics.print("Save to...", 254, 345)
+	love.graphics.print("Save to...", 254, 331)
 	
 	--Notice
 	love.graphics.setFont(fonts.bold12)
 	love.graphics.setColor(159,159,159)
-	love.graphics.printf("Your score will always be saved locally (uploading is optional)", 231, 454, 404, "center")
+	love.graphics.printf("Your score will always be saved locally (uploading is optional)", 231, 442, 404, "center")
 	
 	-- Footer
 	love.graphics.setColor(42,44,46)
 	love.graphics.rectangle("fill", 0, 530, 800, 70)
 	love.graphics.setFont(fonts.bold12)
 	love.graphics.setColor(184,184,184)
-	love.graphics.printf("OMG! Words! is developed and designed by Tommy Brunn in cooperation with the Love community", 252, 560, 340, "center")
+	love.graphics.printf("OMG! Words! is developed and designed by Tommy Brunn in cooperation with the Love community", 252, 546, 340, "center")
 end
 
 function state:keypressed(key, unicode)
@@ -110,17 +110,19 @@ function state:keypressed(key, unicode)
 	end
 	
 	if key == "return" then
-		highscore.add(name, score)
-		highscore.save()
 		local n = string.lower(name)
-		if n == "tux" then
-			AwardManager:Register("Penguin", "I didn't know penguins could type!", 0)
-			AwardManager:AwardTrophy("Penguin")
-		elseif n == "mark shuttleworth" then
-			AwardManager:Register("Cosmonaut", "Don't you have better things to do, Mark?", 0)
-			AwardManager:AwardTrophy("Cosmonaut")
-		end
 		
-		Gamestate.switch(Gamestate.result, score)
+		if n ~= "" then
+			if n == "tux" then
+				AwardManager:Register("Penguin", "I didn't know penguins could type!", 0)
+				AwardManager:AwardTrophy("Penguin")
+			elseif n == "mark shuttleworth" then
+				AwardManager:Register("Cosmonaut", "Don't you have better things to do, Mark?", 0)
+				AwardManager:AwardTrophy("Cosmonaut")
+			end
+			highscore.add(name, score)
+			highscore.save()
+			Gamestate.switch(Gamestate.result, score)
+		end
 	end
 end

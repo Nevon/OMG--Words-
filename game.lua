@@ -170,7 +170,7 @@ function state:draw()
 	love.graphics.setColor(238, 238, 238)
 	love.graphics.setFont(fonts.bold64)
 	local s = string.format("%.0f", score)
-	love.graphics.print(s.."!", 365, 121)
+	love.graphics.print(s.."!", 365, 51)
 	
 	-- Footer
 	love.graphics.setColor(42,44,46)
@@ -186,13 +186,13 @@ function state:draw()
 	--Ben's remark
 	love.graphics.setFont(fonts.regular14)
 	love.graphics.setColor(42,44,46)
-	love.graphics.print(healthmessages[lives], 294, 569)
+	love.graphics.print(healthmessages[lives], 294, 555)
 	
 	-- Words left to miss
 	love.graphics.setFont(fonts.bold24)
-	love.graphics.print(lives, 505-fonts.bold24:getWidth(lives), 580)
+	love.graphics.print(lives, 505-fonts.bold24:getWidth(lives), 556)
 	love.graphics.setFont(fonts.bold12)
-	love.graphics.print("words left", 508, 580)
+	love.graphics.print("words left", 508, 568)
 end
 
 function state:keypressed(key, unicode)

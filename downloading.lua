@@ -10,7 +10,7 @@ function state:update(dt)
 	if thread ~= nil then
 		local success = thread:receive("success")
 		local post = thread:receive("post")
-		if success ~= nil then
+		if success == nil then
 			if not success then
 				print("Failed, falling back to last downloaded post.")
 				post = love.filesystem.read("lastpost.txt")
@@ -43,9 +43,9 @@ function state:draw()
 		-- Current reigning champion
 		love.graphics.setColor(238, 238, 238)
 		love.graphics.setFont(fonts.bold14)
-		love.graphics.print("Reigning champion is", 270, 95)
+		love.graphics.print("Reigning champion is", 270, 81)
 		love.graphics.setFont(fonts.bold28)
-		love.graphics.print(highscore.scores[1][2].." at "..highscore.scores[1][1].." points", 270, 120)
+		love.graphics.print(highscore.scores[1][2].." at "..highscore.scores[1][1].." points", 270, 92)
 	end
 
 	--head
@@ -56,27 +56,29 @@ function state:draw()
 	love.graphics.setColor(66,66,66)
 	love.graphics.setFont(fonts.bold12)
 
-	love.graphics.printf("Press                to download the words of the almighty. No internet connection? Don't worry. I'll just use magic.", 252, 315, 360, "left")
-	love.graphics.print("Press          to quit", 252, 360)
+	love.graphics.printf("Press                to download the words of the almighty. No internet connection? Don't worry. I'll just use magic.", 252, 301, 360, "left")
+	love.graphics.print("Press          to quit", 252, 346)
 
 	love.graphics.setColor(241,93,34)
-	love.graphics.print("ENTER", 289, 315)
-	love.graphics.print("ESC", 289, 360)
+	love.graphics.print("ENTER", 289, 301)
+	love.graphics.print("ESC", 289, 346)
 
 	--Footer
 	love.graphics.setColor(42,44,46)
 	love.graphics.rectangle("fill", 0, 530, 800, 70)
 	love.graphics.setFont(fonts.bold12)
 	love.graphics.setColor(184,184,184)
-	love.graphics.printf("OMG! Words! is developed and designed by Tommy Brunn in cooperation with the Love community", 252, 560, 340, "center")
+	love.graphics.printf("OMG! Words! is developed and designed by Tommy Brunn in cooperation with the Love community", 252, 546, 340, "center")
 end
 
 function state:keypressed(key, unicode)
 	if key == "escape" then
 		love.event.push('q')
 	elseif key == "return" then
-		thread = love.thread.newThread("workhorse", "downloader.lua")
-		thread:start()
+		if not thread then
+			thread = love.thread.newThread("workhorse", "downloader.lua")
+			thread:start()
+		end
 	elseif key == "rctrl" then
 		debug.debug()
 	end
