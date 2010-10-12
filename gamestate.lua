@@ -35,6 +35,7 @@ function Gamestate.new()
 		keyreleased    = __NULL__,
 		keypressed     = __NULL__,
 		mousereleased  = __NULL__,
+		focus          = __NULL__,
 	}
 end
 
@@ -78,6 +79,12 @@ function Gamestate.draw()
 	Gamestate.current:draw()
 end
 
+local _focus
+function Gamestate.focus(f)
+	if _focus then _focus(f) end
+	Gamestate.current:focus(f)
+end
+
 function Gamestate.registerEvents()
 	_update            = love.update
 	love.update        = Gamestate.update
@@ -89,4 +96,6 @@ function Gamestate.registerEvents()
 	love.mousereleased = Gamestate.mousereleased
 	_draw              = love.draw
 	love.draw          = Gamestate.draw
+	_focus             = love.focus
+	love.focus          = Gamestate.focus
 end

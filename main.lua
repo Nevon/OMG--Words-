@@ -42,6 +42,7 @@ function love.load()
 		regular14 = love.graphics.newFont("gfx/fonts/NimbusSansL-Regular.ttf", 14),
 		bold64 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 64),
 		bold28 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 28),
+		bold23 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 23),
 		bold24 = love.graphics.newFont("gfx/fonts/NimbusSansL-Bold.ttf", 24),
 		mono28 = love.graphics.newFont("gfx/fonts/NimbusMonoL-Bold.ttf", 28)
 	}
