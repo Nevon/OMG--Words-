@@ -1,9 +1,30 @@
 require("gamestate")
 Gamestate.downloading = Gamestate.new()
 local state = Gamestate.downloading
+database = {}
+local thread = nil
 
 function state:update(dt)
 	soundmanager:update(dt)
+	
+	if thread ~= nil then
+		local success = thread:receive("success")
+		local post = thread:receive("post")
+		if success ~= nil then
+			if not success then
+				print("Failed, falling back to last downloaded post.")
+				post = love.filesystem.read("lastpost.txt")
+			else
+				print("Success.")
+				post = post:gsub("[^%a]", " ")
+				love.filesystem.write("lastpost.txt", post)
+			end
+		
+			database = Database(post)
+			print ("Post read\!")
+			Gamestate.switch(Gamestate.game)
+		end
+	end
 end
 
 function state:draw()
@@ -54,34 +75,9 @@ function state:keypressed(key, unicode)
 	if key == "escape" then
 		love.event.push('q')
 	elseif key == "return" then
-		downloadWords()
+		thread = love.thread.newThread("workhorse", "downloader.lua")
+		thread:start()
+	elseif key == "rctrl" then
+		debug.debug()
 	end
-end
-
-database = {}
-function downloadWords()
-	local http = require("socket.http")
-	http.TIMEOUT = 5
-	local success, post = pcall(function ()
-		local url = "http://www.omgubuntu.dreamhosters.com/"
-		print("Attempting to contact "..url)
-		local a = http.request(url)
-		local posturl = a:match(('entry%-title"><a href="([^"]+)'))
-		print("Attempting to download post from "..posturl)
-		local b = http.request(posturl)
-		return b:match('<div class="entry%-content">(.+)</div><!%-%- .entry%-content'):gsub("<[^>]+>", ""):gsub("&#8217;", "'"):gsub("&nbsp;", " "):gsub("<a[^>]+>[^<]+</a>", "")
-	end)
-
-	if not success then
-		print("Failed, falling back to last downloaded post.")
-		post = love.filesystem.read("lastpost.txt")
-	else
-		print("Success.")
-		post = post:gsub("[^%a]", " ")
-		love.filesystem.write("lastpost.txt", post)
-	end
-
-	database = Database(post)
-	print ("Post read\!")
-	Gamestate.switch(Gamestate.game)
 end

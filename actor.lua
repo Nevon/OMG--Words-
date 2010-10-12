@@ -16,6 +16,7 @@ end
 Trickster = Class{name="Trickster", function(self, avatar, y, dir, speed)
 	Actor.construct(self, avatar, y, dir, speed)
 	self.shuffled = 0
+	self.awarded = false
 	counter.tricksters = counter.tricksters + 1
 	soundmanager:play(sounds.snicker)
 end}
@@ -32,8 +33,9 @@ function Trickster:update(dt, words, ...)
 		end
 	end
 	
-	if self.shuffled >= 5 then
+	if self.shuffled >= 5 and not self.awarded then
 		AwardManager:AwardTrophy("Cursed fellow")
+		self.awarded = true
 	end
 end
 
