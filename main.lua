@@ -48,6 +48,8 @@ function love.load()
 		mono28 = love.graphics.newFont("gfx/fonts/NimbusMonoL-Bold.ttf", 28)
 	}
 	
+	love.graphics.setIcon(images.icon)
+	
 	--Move trophies if needed
 	local lfs = love.filesystem
 	local trophytable = lfs.enumerate("gfx/trophies/")
