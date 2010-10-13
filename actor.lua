@@ -26,7 +26,7 @@ function Trickster:update(dt, words, ...)
 	self.x = self.x + self.speed * dt * self.dir
 	
 	for _,v in ipairs(words) do
-		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y, v.length*18, 18) then
+		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y+18, v.length*18, 18) then
 			table.shuffle(v.letters)
 			v.shuffled = 2
 			self.shuffled = self.shuffled +1
@@ -50,7 +50,7 @@ function Helper:update(dt, words, explosions, score, timer)
 	self.x = self.x + self.speed*dt*self.dir
 	local removelist = {}
 	for i,v in ipairs(words) do
-		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y, v.length*18, -18) then
+		if rectRectCollision(self.x, self.y, 48, 48, v.x, v.y+18, v.length*18, -18) then
 			table.insert(removelist, i)
 			--for each letter in the word, add an explosion
 			for n,k in ipairs(v.letters) do

@@ -17,6 +17,7 @@ function love.load()
 	love.graphics.setBackgroundColor(247, 246, 245)
 
 	love.filesystem.setIdentity("omgwords")
+	love.mouse.setVisible(false)
 	
 	highscore.set("highscore", 1, "Empty", 0)
 	highscore.save()

@@ -10,7 +10,7 @@ function state:update(dt)
 	if thread ~= nil then
 		local success = thread:receive("success")
 		local post = thread:receive("post")
-		if success == nil then
+		if success ~= nil then
 			if not success then
 				print("Failed, falling back to last downloaded post.")
 				post = love.filesystem.read("lastpost.txt")

@@ -6,6 +6,7 @@ local score = 0
 local resultlevel = 0
 local name = ""
 local highlighted = 1
+local timer = 0
 
 function state:enter(pre, s)
 	score = math.floor(s)
@@ -16,6 +17,7 @@ end
 
 function state:update(dt)
 	soundmanager:update(dt)
+	timer = timer+dt
 end
 
 function state:draw()
@@ -67,6 +69,13 @@ function state:draw()
 	--Name
 	love.graphics.setFont(fonts.bold14)	
 	love.graphics.print(name, 261, 296)
+	
+	--blinking text mark thingy
+	love.graphics.setLine(1, "smooth")
+	if math.floor(timer)%2 == 0 then
+		local xmark = 261+fonts.bold14:getWidth(name)+2
+		love.graphics.line(xmark, 296, xmark, 313)
+	end
 	
 	--Question
 	love.graphics.print("Save to...", 254, 331)
