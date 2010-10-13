@@ -5,7 +5,7 @@ local state = Gamestate.highscore
 local score = 0
 local resultlevel = 0
 local name = ""
-local highlighted = 1
+local highlighted = 2
 local timer = 0
 
 function state:enter(pre, s)
@@ -57,6 +57,9 @@ function state:draw()
 		love.graphics.draw(images.local_active, 465, 366)
 	end
 	
+	--Cross out one of the pictograms
+	love.graphics.draw(images.planks, 314, 359)
+	
 	love.graphics.setFont(fonts.bold28)
 	love.graphics.setColor(42,44,46)
 	
@@ -94,13 +97,13 @@ function state:draw()
 end
 
 function state:keypressed(key, unicode)
-	if key == "left" and highlighted == 2 then
+	--[[if key == "left" and highlighted == 2 then
 		highlighted = 1
 		return
 	elseif key == "right" and highlighted == 1 then
 		highlighted = 2
 		return
-	end
+	end]]--
 	
 	if key == "backspace" then
 		name = name:sub(1, -2)
