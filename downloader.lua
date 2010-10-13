@@ -9,7 +9,7 @@ local success, post = pcall(function ()
 	local posturl = a:match(('entry%-title"><a href="([^"]+)'))
 	t:send("posturl", posturl)
 	local download = t:demand("download")
-	if download then
+	if download == true then
 		print("Attempting to download post from "..posturl)
 		local b = http.request(posturl)
 		return b:match('<div class="entry%-content">(.+)</div><div class="entry%-utility">'):gsub("<[^>]+>", ""):gsub("&#8217;", "'"):gsub("&nbsp;", " "):gsub("<a[^>]+>[^<]+</a>", "")
