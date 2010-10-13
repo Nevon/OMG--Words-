@@ -35,6 +35,7 @@ function Gamestate.new()
 		keyreleased    = __NULL__,
 		keypressed     = __NULL__,
 		mousereleased  = __NULL__,
+		mousepressed   = __NULL__,
 		focus          = __NULL__,
 	}
 end
@@ -73,6 +74,12 @@ function Gamestate.mousereleased(x,y,btn)
 	Gamestate.current:mousereleased(x,y,btn)
 end
 
+local _mousepressed
+function Gamestate.mousepressed(x,y,btn)
+	if _mousepressed then _mousepressed(x,y,btn) end
+	Gamestate.current:mousepressed(x,y,btn)
+end
+
 local _draw
 function Gamestate.draw()
 	if _draw then _draw() end
@@ -94,6 +101,8 @@ function Gamestate.registerEvents()
 	love.keyreleased   = Gamestate.keyreleased
 	_mousereleased     = love.mousereleased
 	love.mousereleased = Gamestate.mousereleased
+	_mousepressed      = love.mousepressed
+	love.mousepressed  = Gamestate.mousepressed
 	_draw              = love.draw
 	love.draw          = Gamestate.draw
 	_focus             = love.focus
