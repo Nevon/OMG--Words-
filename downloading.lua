@@ -4,12 +4,17 @@ local state = Gamestate.downloading
 database = {}
 local thread = nil
 local verified = false
+local progress = 0
 
 function state:update(dt)
 	soundmanager:update(dt)
 	
 	--Once the thread has been created
 	if thread ~= nil then
+		local _ = thread:receive("progress")
+		if _ then
+			progress = _
+		end
 		--Try to get the post url
 		local posturl = thread:receive("posturl")
 		
@@ -30,6 +35,7 @@ function state:update(dt)
 		local post = thread:receive("post")
 		--Once the thread is done, check whether or not it failed
 		if success ~= nil then
+			progress = 1
 			if not success then
 				print("Failed, falling back to last downloaded post.")
 				post = love.filesystem.read("lastpost.txt")
@@ -81,6 +87,19 @@ function state:draw()
 	love.graphics.setColor(241,93,34)
 	love.graphics.print("ENTER", 289, 301)
 	love.graphics.print("ESC", 289, 346)
+	
+	if thread ~= nil then
+		--draw the background of our fake progress bar
+		love.graphics.setColor(255,255,255,255)
+		love.graphics.draw(images.progressbar, 231, 384)
+		
+		--Now draw the bars themselves
+		local length = math.ceil(398*progress)
+		love.graphics.setColor(181,62,126)
+		love.graphics.rectangle("fill", 234, 386, length, 2)
+		love.graphics.setColor(145, 72, 114)
+		love.graphics.rectangle("fill", 234, 388, length, 1)
+	end
 
 	--Footer
 	love.graphics.setColor(42,44,46)
