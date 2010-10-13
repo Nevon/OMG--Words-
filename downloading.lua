@@ -3,13 +3,32 @@ Gamestate.downloading = Gamestate.new()
 local state = Gamestate.downloading
 database = {}
 local thread = nil
+local verified = false
 
 function state:update(dt)
 	soundmanager:update(dt)
 	
+	--Once the thread has been created
 	if thread ~= nil then
+		--Try to get the post url
+		local posturl = thread:receive("posturl")
+		
+		if posturl ~= nil and not verified then
+			--If the URL is the same as the old one, don't bother to
+			--download the post.
+			if posturl == counter.lasturl then
+				thread:send("download", false)
+			else
+				counter.lasturl = posturl
+				love.filesystem.write("counter", TSerialize(counter))
+				thread:send("download", true)
+			end
+			verified = true
+		end
+		
 		local success = thread:receive("success")
 		local post = thread:receive("post")
+		--Once the thread is done, check whether or not it failed
 		if success ~= nil then
 			if not success then
 				print("Failed, falling back to last downloaded post.")

@@ -82,6 +82,7 @@ function love.load()
 			tricksters=0,
 			score=0,
 			played=0,
+			lasturl=0,
 		}
 		lfs.write("counter", TSerialize(counter))
 	else
