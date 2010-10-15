@@ -33,8 +33,6 @@ function state:enter(pre, s)
 	
 	--round the saved score
 	counter.score = math.floor(counter.score)
-	--Save the stats
-	love.filesystem.write("counter", TSerialize(counter))
 end
 
 function state:update(dt)
