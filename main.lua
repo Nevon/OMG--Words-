@@ -93,3 +93,9 @@ function love.load()
 	Gamestate.registerEvents()
 	Gamestate.switch(Gamestate.intro)
 end
+
+function love.quit()
+	print("Saving before quitting.")
+	love.filesystem.write("counter", TSerialize(counter))
+	print("Bye!")
+end
