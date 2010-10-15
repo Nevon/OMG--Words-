@@ -25,7 +25,6 @@ function state:update(dt)
 				thread:send("download", false)
 			else
 				counter.lasturl = posturl
-				love.filesystem.write("counter", TSerialize(counter))
 				thread:send("download", true)
 			end
 			verified = true
