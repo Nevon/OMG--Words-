@@ -40,53 +40,39 @@ function state:draw()
 	
 	--Portrait
 	love.graphics.setColor(255,255,255)
-	love.graphics.draw(images.tommy, 165, 193)
+	love.graphics.draw(images.tommy, 165, 248)
 	
 	-- Speech bubble
-	love.graphics.draw(images.bubbles.newhighscore, 222, 193)
+	love.graphics.draw(images.bubbles.newhighscore, 222, 247)
 	
 	-- Text entry box
-	love.graphics.draw(images.nameentry, 253, 292)
-	
-	-- Option pictograms
-	if highlighted == 1 then
-		love.graphics.draw(images.cloud_active, 335, 366)
-		love.graphics.draw(images.local_inactive, 465, 366)
-	else
-		love.graphics.draw(images.cloud_inactive, 335, 366)
-		love.graphics.draw(images.local_active, 465, 366)
-	end
-	
-	--Cross out one of the pictograms
-	love.graphics.draw(images.planks, 314, 359)
+	love.graphics.draw(images.nameentry, 253, 346)
 	
 	love.graphics.setFont(fonts.bold28)
 	love.graphics.setColor(42,44,46)
 	
 	-- text
-	love.graphics.printf("New high score!", 231, 205, 404, "center")
+	love.graphics.printf("New high score!", 231, 257, 404, "center")
 	love.graphics.setColor(66,66,66)
 	love.graphics.setFont(fonts.regular14)
-	love.graphics.printf("Tell us your name so that we can enter it into the history books:", 253, 246, 323, "left")
+	love.graphics.printf("Tell us your name so that we can enter it into the history books:", 253, 293, 323, "left")
 	
 	--Name
 	love.graphics.setFont(fonts.bold14)	
-	love.graphics.print(name, 261, 296)
+	love.graphics.print(name, 261, 350)
 	
 	--blinking text mark thingy
 	love.graphics.setLine(1, "smooth")
 	if math.floor(timer)%2 == 0 then
 		local xmark = 261+fonts.bold14:getWidth(name)+2
-		love.graphics.line(xmark, 296, xmark, 313)
+		love.graphics.line(xmark, 350, xmark, 367)
 	end
 	
-	--Question
-	love.graphics.print("Save to...", 254, 331)
-	
-	--Notice
-	love.graphics.setFont(fonts.bold12)
-	love.graphics.setColor(159,159,159)
-	love.graphics.printf("Your score will always be saved locally (uploading is optional)", 231, 442, 404, "center")
+	--Saving instructions
+	love.graphics.print("Press", 362, 383)
+	love.graphics.print("to save", 455, 383)
+	love.graphics.setColor(241,93,34)
+	love.graphics.print("ENTER", 405, 383)
 	
 	-- Footer
 	love.graphics.setColor(42,44,46)
