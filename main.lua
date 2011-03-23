@@ -19,6 +19,7 @@ function love.load()
 
 	love.mouse.setVisible(false)
 	
+	love.filesystem.setIdentity("omgwords")
 	highscore.set("highscore", 1, "Empty", 0)
 	highscore.save()
 	
