@@ -80,13 +80,13 @@ function state:draw()
 	love.graphics.setColor(66,66,66)
 	love.graphics.setFont(fonts.bold12)
 
-	love.graphics.print("Press                to download the words of the almighty. No internet", 252, 301)
-	love.graphics.print("connection? Don't worry. I'll just use magic.", 252, 317)
+	love.graphics.print("Press                to download the words of the almighty. No", 252, 301)
+	love.graphics.print("internet connection? Don't worry. I'll just use magic.", 252, 317)
 	love.graphics.print("Press           to quit", 252, 346)
 
 	love.graphics.setColor(241,93,34)
-	love.graphics.print("ENTER", 289, 301)
-	love.graphics.print("ESC", 289, 346)
+	love.graphics.print("ENTER", 292, 301)
+	love.graphics.print("ESC", 292, 346)
 	
 	if thread ~= nil then
 		--draw the background of our fake progress bar
